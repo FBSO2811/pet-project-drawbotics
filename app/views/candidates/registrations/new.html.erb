@@ -1,0 +1,91 @@
+<!-- <head>
+  <script>$( "#user_organization_name" ).keypress(function() {
+    $('#custom_org_id_select_menu').removeClass();
+});</script>
+</head> -->
+
+<div class="container">
+  <div class="row">
+    <div class="mt-5 offset-2 col-md-8">
+
+      <h2>Sign up for candidates</h2>
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :firstname,
+        required: true,
+        autofocus: true,
+        placehoder: "John"%>
+        <%= f.input :lastname,
+        required: true,
+        autofocus: true,
+        placehoder: "Snow"%>
+        <%= f.input :email,
+        required: true,
+        autofocus: true,
+        placehoder: "name@gmail.com",
+        input_html: { autocomplete: "email" }%>
+        <%= f.input :password,
+        required: true,
+        hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+        input_html: { autocomplete: "new-password" },
+        placeholder: "xYui6578Z!"%>
+        <%= f.input :password_confirmation,
+        required: true,
+        input_html: { autocomplete: "new-password" },
+        placeholder: "Repeat above password"%>
+        <p>Select your skills:</p>
+        <%= f.input :skill, as: :check_boxes, collection:[
+        ['Python', "python"],
+        ['Java', "java"],
+        ['JavaScript', "javascript"],
+        ['Ruby', "ruby"],
+        ['C++', "c++"],
+        ['Node.js', "node"],
+        ['React', "react"],
+        ['Django', "django"],
+        ['Rails', "rails"],
+        ['SQL', "sql"],
+        ['Doker', "doker"],
+        ['AWS', "aws"],
+        ['Vue.js', "vue"],
+        ['Marketing', "Marketing"],
+        ['HR', "hr"],
+        ['Finance', "finance"],
+        ['IT', "it"],
+        ],input_html: { multiple: true }, include_hidden: false %>
+
+
+        <%= f.input :linkedin,
+        required: true,
+        autofocus: true,
+        placehoder: "www.linkedin.com/johnsnow"%>
+        <%= f.input :angellist,
+        required: true,
+        autofocus: true,
+        placehoder: "JohnDragon66"%>
+
+
+
+<!-- <div id="custom_org_id_select_menu">
+    <%= f.select :skill, ["Apple", "Google", "Microsoft", "Others"] %>
+  </div> -->
+
+<!--   <div id="custom_org_id hide">
+    <%= f.input :skill, label: "Others" %>
+  </div> -->
+
+
+
+
+  <div class="form-actions">
+    <%= f.button :submit, "Sign up", :class=>"btn btn-primary"%>
+  </div>
+  <% end %>
+
+  <%= render "candidates/shared/links" %>
+</div>
+</div>
+</div>

@@ -1,0 +1,70 @@
+<div class="mt-4 container text-center">
+<h2>FIND A MATCH FOR:</h2>
+ <h2> <%= link_to @position.title, position_path(@position) %> </h2>
+ <h3> Skills needed: <%= @position.array_skills.join(" ") %></h3>
+</div>
+
+
+<% if current_interviewer.candidatures.count() > 0 %>
+<%my_count = 1%>
+<div class="container text-right">
+  <%= link_to "Create a position", new_position_path, class: "mt-3 btn btn-success" %>
+</div>
+
+<% my_count = 1%>
+<table class="mt-4 table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Matching skills</th>
+      <th scope="col">Skills fit</th>
+
+      <th scope="col">Contact</th>
+
+    </tr>
+  </thead>
+  <tbody>
+<% @final_matching_score.each do |my_dict|%>
+    <tr>
+      <th scope="row"><%=my_count%></th>
+      <td><%=   my_dict[0].lastname  %></td>
+      <td><a href="mailto:"><%= my_dict[0].email %></a></td>
+      <td><%= my_dict[1].join(" ") %></td>
+
+      <% if (my_dict[1].length.to_f/@position.array_skills.length.to_f) > 0.70 %>
+        <td style="color: green"> <%= my_dict[1].length %> / <%=@position.array_skills.length%></td>
+      <% elsif (my_dict[1].length.to_f/@position.array_skills.length.to_f < 0.30) %>
+        <td style="color: red"> <%= my_dict[1].length %> / <%=@position.array_skills.length%></td>
+      <% else %>
+        <td style="color: orange" > <%= my_dict[1].length %> / <%=@position.array_skills.length%></td>
+
+      <% end %>
+
+
+
+
+      <td><%= link_to "Appointment", "#", :class => "mt-2 mb-2 btn btn-primary btn-block"%></td>
+    </tr>
+ <% my_count += 1%>
+<% end %>
+
+  </tbody>
+</table>
+
+
+
+<% else %>
+<div class="mt-4 container text-center">
+<div class="mt-4 jumbotron">
+  <h1 class="display-4">There are no candidatures yet</h1>
+
+
+      <%= link_to "Explore candidates", list_candidates_path, class: "mt-4 btn btn-primary"%>
+      <%= link_to "Find a match", positions_path, class: "mt-4 btn btn-primary"%>
+
+    </div></div>
+</div>
+</div>
+      <% end %>

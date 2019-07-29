@@ -1,0 +1,70 @@
+<div class="mt-4 container text-center">
+<h2>DASHBOARD</h2>
+</div>
+
+
+<% if current_interviewer.candidatures.count() > 0 %>
+<%my_count = 1%>
+<div class="container text-right">
+  <%= link_to "Create a position", new_position_path, class: "mt-3 btn btn-success" %>
+</div>
+
+
+<table class="mt-4 table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Position</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+      <th scope="col">Matching skills</th>
+      <th scope="col">Contact</th>
+
+    </tr>
+  </thead>
+  <tbody>
+<% current_interviewer.candidatures.each do |candidature| %>
+
+          <% matching_skills_array = [] %>
+          <% candidate_skills_array = candidature.candidate.skill %>
+          <% position_skills_array = candidature.position.array_skills %>
+          <% matching_skills_array = candidate_skills_array & position_skills_array %>
+          <% matching_skills_string = "" %>
+          <% matching_skills_array.each do |skill| %>
+            <% matching_skills_string = matching_skills_string + skill + ", " %>
+
+          <% end %>
+          <%matching_skills_string = matching_skills_string.chop.chop%>
+    <tr>
+      <th scope="row"><%= my_count %></th>
+      <td> <%= link_to candidature.position.title, position_path(candidature.position.id) %></td>
+      <td><%= candidature.candidate.lastname %></td>
+      <td><a href="mailto:<%= candidature.candidate.email %>"><%= candidature.candidate.email %></a></td>
+      <td><%=matching_skills_array.join(" ")%></td>
+      <td><%= link_to "Appointment", "#", :class => "mt-2 mb-2 btn btn-primary btn-block"%>
+</td>
+
+
+    </tr>
+    <%my_count += 1%>
+
+      <% end %>
+  </tbody>
+</table>
+
+
+
+<% else %>
+
+<div class="mt-4 container text-center">
+<div class="mt-4 jumbotron">
+  <h1 class="display-4">There are no candidatures yet</h1>
+
+
+      <%= link_to "Explore candidates", list_candidates_path, class: "mt-4 btn btn-primary"%>
+      <%= link_to "Find a match", positions_path, class: "mt-4 btn btn-primary"%>
+
+    </div></div>
+</div>
+</div>
+      <% end %>

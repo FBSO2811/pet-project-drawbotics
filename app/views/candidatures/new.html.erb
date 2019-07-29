@@ -1,0 +1,29 @@
+
+      <% current_candidate_skill_string = "" %>
+      <% current_candidate.skill.each do |skill| %>
+      <% current_candidate_skill_string = current_candidate_skill_string + skill + ", " %>
+      <% end %>
+      <% current_candidate_skill_string.chop!.chop! %>
+
+
+<div class="container">
+<h2 class="mt-2 text-center">Application</h2>
+<div class="mt-4 jumbotron">
+  <h1 class="display-4"><%= @position.title %> </h1>
+
+  <p class="mt-4 lead">Skill required: <%=@position.skills%></p>
+  <hr class="my-4">
+    <div col-md-6>
+  <p class="lead">Your skills: <%= current_candidate.skill.join(" ") %></p>
+  <hr class="my-4">
+  </div>
+
+  <p>Matching skills: <%= @matching_skills_string %></p>
+<div id="my_candidature_form" class="text-center my_candidature_form mt-3 offset-2 col-md-8">
+      <%= simple_form_for [@position, @candidature] do |f| %>
+
+      <%= f.submit "Apply ", class: " btn btn-primary" %>
+      <% end %>
+      <%= link_to "Go back", positions_path, class: "mt-4 btn btn-light"%>
+    </div></div>
+</div>

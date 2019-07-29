@@ -10,10 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_26_173500) do
+ActiveRecord::Schema.define(version: 2019_07_28_201841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "candidates", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "firstname"
+    t.string "lastname"
+    t.string "angellist"
+    t.string "linkedin"
+    t.string "skill", default: [], array: true
+    t.index ["email"], name: "index_candidates_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_candidates_on_reset_password_token", unique: true
+  end
+
+  create_table "candidatures", force: :cascade do |t|
+    t.bigint "candidate_id"
+    t.bigint "interviewer_id"
+    t.bigint "position_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"], name: "index_candidatures_on_candidate_id"
+    t.index ["interviewer_id"], name: "index_candidatures_on_interviewer_id"
+    t.index ["position_id"], name: "index_candidatures_on_position_id"
+  end
+
+  create_table "interviewers", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_interviewers_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_interviewers_on_reset_password_token", unique: true
+  end
+
+  create_table "positions", force: :cascade do |t|
+    t.string "title"
+    t.bigint "interviewer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "candidate_id"
+    t.string "array_skills", default: [], array: true
+    t.string "skills"
+    t.index ["candidate_id"], name: "index_positions_on_candidate_id"
+    t.index ["interviewer_id"], name: "index_positions_on_interviewer_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +79,9 @@ ActiveRecord::Schema.define(version: 2019_07_26_173500) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "candidatures", "candidates"
+  add_foreign_key "candidatures", "interviewers"
+  add_foreign_key "candidatures", "positions"
+  add_foreign_key "positions", "candidates"
+  add_foreign_key "positions", "interviewers"
 end
