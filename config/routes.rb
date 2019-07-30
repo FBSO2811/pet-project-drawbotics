@@ -13,9 +13,7 @@ Rails.application.routes.draw do
         get :find_match
       end
     resources :candidatures do
-      member do
-        get :apply_to_position
-      end
+
     end
   end
   # devise_for :users

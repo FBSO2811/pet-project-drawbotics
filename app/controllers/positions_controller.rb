@@ -2,7 +2,8 @@ class PositionsController < ApplicationController
   skip_before_action :authenticate_candidate!
   skip_before_action :authenticate_interviewer!
 
-  before_action :set_position, only: [:show, :edit, :update, :destroy, :find_match]
+  before_action :set_position, only: [:show, :edit, :update, :destroy, :find_match, :add_review]
+
 
   def index
     @positions = Position.all

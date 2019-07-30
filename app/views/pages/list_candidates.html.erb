@@ -1,12 +1,12 @@
 <div class="mt-4 container text-center">
 <h2>ALL CANDIDATES</h2>
 </div>
-<% if @candidates  %>
+<% if Candidate.all.count >0   %>
 <div class="container text-right">
   <%= link_to "Find fit for a position", positions_path, class: "mt-3 btn btn-success" %>
 </div>
 
-<% @candidates.each do |candidate| %>
+<% Candidate.all.each do |candidate| %>
   <div class="container">
     <div class="mt-3 card mb-12">
       <div class="row no-gutters">
