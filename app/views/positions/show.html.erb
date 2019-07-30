@@ -25,6 +25,44 @@
 
   </thead>
   <tbody>
+    <% my_count = 1 %>
+                  <% @employee_final_expertises_score.each do |my_dict|%>
+    <tr>
+      <th  scope="row"><%=my_count%></th>
+      <td><%= my_dict[0].email%></td>
+      <td><%= my_dict[0].expertises_array.join(" ")%></td>
+      <% if  my_dict[1].length.to_f/@position.array_skills.length.to_f > 0.5 %>
+              <td style="color:green"><%= my_dict[1].join(" ")%></td>
+      <% elsif my_dict[1].length.to_f/@position.array_skills.length.to_f < 0.2 %>
+              <td style="color:red"><%= my_dict[1].join(" ")%></td>
+      <% else %>
+            <td style="color:orange"><%= my_dict[1].join(" ")%></td>
+      <% end %>
+
+    </tr>
+        <% my_count += 1 %>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+            <b>  <p class="card-text text-center">THE BEST HR FOR THIS POSITION ARE</p></b>
+<table class="mt-2 table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Expertises</th>
+      <th scope="col">Matching</th>
+    </tr>
+
+  </thead>
+  <tbody>
     <% my_count_interview = 1 %>
                   <% @final_expertises_score.each do |my_dict|%>
     <tr>

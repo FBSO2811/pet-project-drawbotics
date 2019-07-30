@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="mt-5 offset-2 col-md-8">
+      <h3>Add/modify Employee</h3>
+    </div>
+    <div class="mt-3 offset-2 col-md-8">
+       <%= simple_form_for @employee do |f| %>
+         <%= f.input :firstname, required:true %>
+         <%= f.input :lastname, required:true %>
+         <%= f.input :email, required:true %>
+
+       <%= f.input :position, required:true,  label: 'Select the position', collection:
+        ['Marketing manager', 'Senior software engineer', 'Frontend developer', 'AWS architect', 'Backend engineer', 'Corporate finance', 'HR expert', 'IT manager', 'JavaScript lead', 'Rails lead', "Database manager"], include_hidden: false %>
+
+       <%= f.input :expertises_array, as: :check_boxes,  label: 'Select the employee expertises', collection:[
+        ['Marketing', "python"],
+        ['Java', "java"],
+        ['JavaScript', "javascript"],
+        ['Ruby', "ruby"],
+        ['C++', "c++"],
+        ['Node.js', "node"],
+        ['React', "react"],
+        ['Django', "django"],
+        ['Rails', "rails"],
+        ['SQL', "sql"],
+        ['Doker', "doker"],
+        ['AWS', "aws"],
+        ['Vue.js', "vue"],
+        ['Marketing', "Marketing"],
+        ['HR', "hr"],
+        ['Finance', "finance"],
+        ['IT', "it"],
+        ], input_html: { multiple: true }, include_hidden: false %>
+
+        <%= f.submit "Submit employee", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
