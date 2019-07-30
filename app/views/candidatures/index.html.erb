@@ -73,7 +73,9 @@
       <% else %>
             <td style="color:orange"><%= my_dict[1].join(" ")%></td>
       <% end %>
-<td><%=link_to "Match", "#", :class => "mt-2 mb-2 btn btn-primary btn-block"%></td>
+<td><%= mail_to my_dict[0].email+";"+candidature.candidate.email,"Match", subject:"Match with RecruitT", body: " You matched with RecruiT for the position " +@position.title + ". Your point of contact is eht employee: " + my_dict[0].firstname%>
+
+</td>
     </tr>
         <% my_count += 1 %>
     <% end %>

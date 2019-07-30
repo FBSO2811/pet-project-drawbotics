@@ -29,7 +29,8 @@
       <th scope="col">Email</th>
       <th scope="col">Job</th>
       <th scope="col">Expertises</th>
-      <th scope="col">Matching</th>
+      <th scope="col">Affinity</th>
+      <th scope="col">Match</th>
 
     </tr>
 
@@ -63,6 +64,8 @@
       <% else %>
             <td style="color:orange"><%= my_dict[1].join(" ")%></td>
       <% end %>
+            <td><%= link_to "Match", position_candidatures_path(position), class:"btn btn-primary"%></td>
+
     </tr>
         <% my_count_interview += 1 %>
     <% end %>
