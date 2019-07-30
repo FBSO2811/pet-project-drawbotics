@@ -2,13 +2,31 @@ class CandidaturesController < ApplicationController
   skip_before_action :authenticate_candidate!
   skip_before_action :authenticate_interviewer!
 
-  before_action :set_position, only: [:show, :edit, :update, :destroy]
+  before_action :set_candidature, only: [:show, :edit, :update, :destroy, :add_review]
+
+
+def edit
+  @position = Position.find(params[:position_id])
+  @candidature = Candidature.find(params[:id])
+end
+
+def update
+  @position = Position.find(params[:position_id])
+  @candidature = Candidature.find(params[:id])
+  if @candidature.update(candidature_params)
+        redirect_to position_candidatures_path(@position)
+    else
+      render :edit
+    end
+end
 
   def index
     @candidatures = Candidature.all
     @position = Position.find(params[:position_id])
   end
 
+  def show
+  end
 
   def new
     @position = Position.find(params[:position_id])
@@ -34,7 +52,6 @@ class CandidaturesController < ApplicationController
   def create
     @position = Position.find(params[:position_id])
     @candidature = Candidature.new
-
     @candidature.candidate = current_candidate
     @candidature.position = @position
     @candidature.interviewer = @position.interviewer
@@ -59,17 +76,14 @@ class CandidaturesController < ApplicationController
 
   private
 
-  def set_position
-    @candidature = Candidature.find(params[:id])
+  def set_candidature
+    @position = Position.find(params[:position_id])
   end
 
   def candidature_params
-    params.require(:candidature).permit(:position)
+    params.require(:candidature).permit(:position, :review)
   end
 
 
-  def apply_to_position
-
-  end
 
 end

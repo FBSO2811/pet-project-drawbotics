@@ -121,6 +121,7 @@
         </div>
         <div class="mt-2 col-md-2">
           <%= link_to "See position", position_path(position.id), :class => "mt-2 mb-2 btn btn-primary btn-block"%>
+          <%= link_to "See candidatures", position_candidatures_path(position), :class => "mt-2 mb-2 btn btn-primary btn-block"%>
           <%= link_to "Find match", find_match_position_path(position.id), :class => "mt-2 mb-2 btn btn-primary btn-block"%>
           <%= link_to "Edit position", edit_position_path(position.id), :class => "mt-2 mb-2 btn btn-light btn-block"%>
 
@@ -179,24 +180,24 @@
 
 
 
-            <p class="card-text">Matching skills: <%= matching_skills_array.join(" ") %></p>
+      <p class="card-text">Matching skills: <%= matching_skills_array.join(" ") %></p>
 
-              <% if  (matching_skills_array.length / position.array_skills.length).to_f*100 > 70 %>
+        <% if  (matching_skills_array.length.to_f / position.array_skills.length.to_f).to_f*100 > 70 %>
 
-              <p class="card-text" style="color:green">Percentage matching: <%= (matching_skills_array.length / position.array_skills.length).to_i*100 %>%</p>
-              <% elsif  (matching_skills_array.length / position.array_skills.length).to_f*100 < 30 %>
-              <%= d %>
-                            <p class="card-text" style="color:red">Percentage matching: <%= (matching_skills_array.length / position.array_skills.length).to_i*100 %>%</p>
-              <% else %>
-                  <p class="card-text" style="color:orange">Percentage matching: <%= (matching_skills_array.length / position.array_skills.length).to_i*100 %>%</p>
-              <% end %>
+        <p class="card-text" style="color:green">Percentage matching: <%= (matching_skills_array.length / position.array_skills.length).to_i*100 %>%</p>
+
+        <% elsif  (matching_skills_array.length.to_f / position.array_skills.length.to_f).to_f*100 < 30 %>
+          <p class="card-text" style="color:red">Percentage matching: <%= (matching_skills_array.length.to_f / position.array_skills.length.to_f).to_i*100 %>%</p>
+        <% else %>
+            <p class="card-text" style="color:orange">Percentage matching: <%= (matching_skills_array.length.to_f / position.array_skills.length.to_f).to_f*100 %>%</p>
+        <% end %>
 
 
 
-            <p class="card-text"><small class="text-muted">Number of applicants: <%=position.candidatures.count() %> </small></p>
-          </div>
-        </div>
-        <div class="mt-2 col-md-3">
+      <p class="card-text"><small class="text-muted">Number of applicants: <%=position.candidatures.count() %> </small></p>
+    </div>
+  </div>
+  <div class="mt-2 col-md-3">
 
 <% id_candiatures_for_position = [] %>
 <% position.candidatures.each do |c| %>
