@@ -6,12 +6,19 @@ class PositionsController < ApplicationController
 
   def index
     @positions = Position.all
-
-
   end
 
   def show
-    # @current_candidate = current_candidate
+    @interviewers = Interviewer.all
+    @position_skills = @position.array_skills
+    @matching_expertises_array = []
+    @matching_expertises = {}
+
+    @interviewers.each do |interviewer|
+      @matching_expertises_array =  interviewer.expertises & @position.array_skills
+      @matching_expertises.store(interviewer, @matching_expertises_array)
+    end
+      @final_expertises_score = Hash[@matching_expertises.sort_by { |k, v| v.length }.reverse!]
   end
 
   def new
@@ -34,6 +41,7 @@ class PositionsController < ApplicationController
     else
       render :new
     end
+
 
   end
 

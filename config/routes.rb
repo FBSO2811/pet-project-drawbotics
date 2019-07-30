@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get "dashboard", to: 'pages#dashboard'
   get "list_candidates", to: 'pages#list_candidates'
 
-
   resources :positions do
       member do
         get :find_match
