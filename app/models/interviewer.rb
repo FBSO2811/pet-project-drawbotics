@@ -8,7 +8,6 @@ class Interviewer < ApplicationRecord
 
   validate :must_have_one_skill
 
-  # answered by @Taryn East - the second answer
   def must_have_one_skill
     errors.add(:base, 'You must select at least one expertise') if self.expertises.all?{|skill| skill.blank? }
   end

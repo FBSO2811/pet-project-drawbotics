@@ -11,8 +11,10 @@ class PagesController < ApplicationController
   def dashboard
   end
 
-  def list_candidates
+  def list_candiates
     @candidates = Candidate.all
+
   end
+
 
 end

@@ -19,6 +19,18 @@ class PositionsController < ApplicationController
       @matching_expertises.store(interviewer, @matching_expertises_array)
     end
       @final_expertises_score = Hash[@matching_expertises.sort_by { |k, v| v.length }.reverse!]
+
+    @employees = Employee.all
+    @employee_skills = @position.array_skills
+    @employee_matching_expertises_array = []
+    @employee_matching_expertises = {}
+
+    @employees.each do |employee|
+    @employee_matching_expertises_array =  employee.expertises_array & @position.array_skills
+    @employee_matching_expertises.store(employee, @employee_matching_expertises_array)
+    end
+      @employee_final_expertises_score = Hash[@employee_matching_expertises.sort_by { |k, v| v.length }.reverse!]
+
   end
 
   def new

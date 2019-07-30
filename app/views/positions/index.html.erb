@@ -19,7 +19,59 @@
               <p class="card-text">Skills: <%= position.skills %></p>
               <p class="card-text">Number of applicants: <%= position.candidatures.count %>  </p>
             <p class="card-text"><small class="text-muted">Create by employer: <%= position.interviewer.email %></small></p>
-                      <b>  <p class="card-text text-center">THE BEST HR FOR THIS POSITION ARE</p></b>
+
+
+     <b>  <p class="card-text text-center">THE BEST EMPLOYEES TO MATCH ARE</p></b>
+<table class="mt-2 table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Job</th>
+      <th scope="col">Expertises</th>
+      <th scope="col">Matching</th>
+    </tr>
+
+  </thead>
+  <tbody>
+
+    <% employees = Employee.all %>
+    <% position_skills = position.array_skills %>
+    <% matching_expertises_array = []%>
+    <% matching_expertises = {}%>
+    <% employees.each do |employee| %>
+      <% matching_expertises_array =  employee.expertises_array & position.array_skills %>
+      <% matching_expertises.store(employee, matching_expertises_array) %>
+    <% end%>
+      <% employee_final_expertises_score = Hash[matching_expertises.sort_by { |k, v| v.length }.reverse!] %>
+
+
+    <% my_count_interview = 1 %>
+
+    <% employee_final_expertises_score.each do |my_dict|%>
+    <tr>
+      <th  scope="row"><%=my_count_interview%></th>
+      <td><%= my_dict[0].email%></td>
+      <td><%= my_dict[0].position%></td>
+
+      <td><%= my_dict[0].expertises_array.join(" ")%></td>
+      <% if  my_dict[1].length.to_f/position.array_skills.length.to_f > 0.5 %>
+              <td style="color:green"><%= my_dict[1].join(" ")%></td>
+      <% elsif my_dict[1].length.to_f/position.array_skills.length.to_f < 0.2 %>
+              <td style="color:red"><%= my_dict[1].join(" ")%></td>
+      <% else %>
+            <td style="color:orange"><%= my_dict[1].join(" ")%></td>
+      <% end %>
+
+    </tr>
+        <% my_count_interview += 1 %>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+    <b>  <p class="card-text text-center">THE BEST HR FOR THIS POSITION ARE</p></b>
 <table class="mt-2 table table-sm">
   <thead>
     <tr>
