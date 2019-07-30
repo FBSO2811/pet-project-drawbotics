@@ -16,7 +16,7 @@
       <% @candidatures.each do |candidature| %>
 <% if candidature.position = @position %>
 <table class="mt-4 table">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Firstname</th>
@@ -45,6 +45,42 @@
 </table>
 
 <% my_count = my_count+1%>
+
+  <h5 class="ml-2 text">THE BEST EMPLOYEES TO MATCH WITH THE CANDIDATE ARE:</h5>
+<table class="ml-2 mt-2 table-info table-sm table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Expertises</th>
+      <th scope="col">Matching</th>
+      <th scope="col">Send an email to both</th>
+
+    </tr>
+
+  </thead>
+  <tbody>
+    <% my_count = 1 %>
+                  <% @employee_final_expertises_score.each do |my_dict|%>
+    <tr>
+      <th  scope="row"><%=my_count%></th>
+      <td><%= my_dict[0].email%></td>
+      <td><%= my_dict[0].expertises_array.join(" ")%></td>
+      <% if  my_dict[1].length.to_f/@position.array_skills.length.to_f > 0.5 %>
+              <td style="color:green"><%= my_dict[1].join(" ")%></td>
+      <% elsif my_dict[1].length.to_f/@position.array_skills.length.to_f < 0.2 %>
+              <td style="color:red"><%= my_dict[1].join(" ")%></td>
+      <% else %>
+            <td style="color:orange"><%= my_dict[1].join(" ")%></td>
+      <% end %>
+<td><%=link_to "Match", "#", :class => "mt-2 mb-2 btn btn-primary btn-block"%></td>
+    </tr>
+        <% my_count += 1 %>
+    <% end %>
+  </tbody>
+</table>
+
+
 <% end %>
 
 
