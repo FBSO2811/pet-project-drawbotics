@@ -7,7 +7,7 @@
       <%= simple_form_for [@interviewer, @position] do |f| %>
         <%= f.input :title, required:true %>
 
-       <%= f.input :array_skills, as: :check_boxes, collection:[
+       <%= f.input :array_skills, as: :check_boxes, label: 'Select the skills for the position (at least one)*', collection:[
         ['Python', "python"],
         ['Java', "java"],
         ['JavaScript', "javascript"],

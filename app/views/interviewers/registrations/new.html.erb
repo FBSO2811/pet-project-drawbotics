@@ -19,7 +19,31 @@
         <%= f.input :password_confirmation,
         required: true,
         input_html: { autocomplete: "new-password" } %>
+        <%= f.input :expertises, as: :check_boxes, label: 'Select your expertises (at least one)*', collection:[
+        ['Python', "python"],
+        ['Java', "java"],
+        ['JavaScript', "javascript"],
+        ['Ruby', "ruby"],
+        ['C++', "c++"],
+        ['Node.js', "node"],
+        ['React', "react"],
+        ['Django', "django"],
+        ['Rails', "rails"],
+        ['SQL', "sql"],
+        ['Doker', "doker"],
+        ['AWS', "aws"],
+        ['Vue.js', "vue"],
+        ['Marketing', "Marketing"],
+        ['HR', "hr"],
+        ['Finance', "finance"],
+        ['IT', "it"],
+        ],input_html: { multiple: true }, include_hidden: false %>
+
+
       </div>
+
+
+
 
       <div class="form-actions">
         <%= f.button :submit, "Sign up", :class=>"btn btn-primary" %>

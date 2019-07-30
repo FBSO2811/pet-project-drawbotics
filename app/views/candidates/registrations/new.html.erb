@@ -36,8 +36,7 @@
         required: true,
         input_html: { autocomplete: "new-password" },
         placeholder: "Repeat above password"%>
-        <p>Select your skills:</p>
-        <%= f.input :skill, as: :check_boxes, collection:[
+        <%= f.input :skill, as: :check_boxes, label: 'Select your skills (at least one)*', collection:[
         ['Python', "python"],
         ['Java', "java"],
         ['JavaScript', "javascript"],

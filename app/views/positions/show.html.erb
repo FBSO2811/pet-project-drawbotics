@@ -8,9 +8,46 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title"> <%= @position.title %></h5>
+            <h5 class="card-title"><h5><%= link_to @position.title, position_path(@position)%></h5>
+</h5>
             <p class="card-text">Skills: <%= @position.skills %></p>
             <p class="card-text">Number of applicants: <%=@position.candidatures.length%></p>
+
+            <b>  <p class="card-text text-center">THE BEST HR FOR THIS POSITION ARE</p></b>
+<table class="mt-2 table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email</th>
+      <th scope="col">Expertises</th>
+      <th scope="col">Matching</th>
+    </tr>
+
+  </thead>
+  <tbody>
+    <% my_count_interview = 1 %>
+                  <% @final_expertises_score.each do |my_dict|%>
+    <tr>
+      <th  scope="row"><%=my_count_interview%></th>
+      <td><%= my_dict[0].email%></td>
+      <td><%= my_dict[0].expertises.join(" ")%></td>
+      <% if  my_dict[1].length.to_f/@position.array_skills.length.to_f > 0.5 %>
+              <td style="color:green"><%= my_dict[1].join(" ")%></td>
+      <% elsif my_dict[1].length.to_f/@position.array_skills.length.to_f < 0.2 %>
+              <td style="color:red"><%= my_dict[1].join(" ")%></td>
+      <% else %>
+            <td style="color:orange"><%= my_dict[1].join(" ")%></td>
+      <% end %>
+
+    </tr>
+        <% my_count_interview += 1 %>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
             <p class="card-text"><small class="text-muted">Create by employer: <%= @position.interviewer.email %></small></p>
           </div>
         </div>
@@ -35,6 +72,8 @@
 <%my_count = 1%>
 
 <table class="mt-4 table">
+    <b><caption class="ml-2 " style="caption-side: top; color:black; font-weight: bold;" >THE CANDIDATES FOR THIS POSITION:</caption></b>
+
   <thead>
     <tr>
       <th scope="col">#</th>
