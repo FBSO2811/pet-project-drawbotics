@@ -21,8 +21,20 @@ def update
 end
 
   def index
+    @employees = Employee.all
     @candidatures = Candidature.all
     @position = Position.find(params[:position_id])
+
+    @employee_matching_expertises_array = []
+    @employee_matching_expertises = {}
+
+    @employees.each do |employee|
+    @employee_matching_expertises_array =  employee.expertises_array & @position.array_skills
+    @employee_matching_expertises.store(employee, @employee_matching_expertises_array)
+    end
+      @employee_final_expertises_score = Hash[@employee_matching_expertises.sort_by { |k, v| v.length }.reverse!]
+
+
   end
 
   def show
